@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Cookie from "js-cookie";
 import { Link, useNavigate } from "react-router-dom";
 
 import {
@@ -17,6 +16,7 @@ import {
 import { ShieldExclamationIcon } from "@heroicons/react/24/outline";
 
 import axios from "axios";
+import Cookies from "js-cookie";
 
 export function SignIn() {
 
@@ -39,7 +39,8 @@ export function SignIn() {
       data = { email: getEmail, password: getPassword } // Inisialisasi data mandatory
       const result = await axios.post(`${serviceHost}/auth/login`, data, { withCredentials: true }) // Mengirimkan request ke backend
 
-      Cookie.set(`refresh_token`, Cookie.get(`refresh_token`))
+      // ngadamel cookie refresh token, kanggo ngabuka akses ka dashboard
+      Cookies.set(`refresh_token`, result.data.data.token)
 
       // Redirect client page menuju halaman dashboard aplikasi
       return navigate("/dashboard/home")

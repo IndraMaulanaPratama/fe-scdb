@@ -23,6 +23,7 @@ export function SignIn() {
   // Inisialisasi variable
   const navigate = useNavigate()
   const serviceHost = import.meta.env.VITE_HOST_SERVICE_SCDB
+  const appDomain = import.meta.env.VITE_HOST_APP_DOMAIN
   const [getEmail, setEmail] = useState("")
   const [getPassword, setPassword] = useState("")
   const [getMessage, setMessage] = useState("")
@@ -40,7 +41,7 @@ export function SignIn() {
       const result = await axios.post(`${serviceHost}/auth/login`, data, { withCredentials: true }) // Mengirimkan request ke backend
 
       // ngadamel cookie refresh token, kanggo ngabuka akses ka dashboard
-      Cookies.set(`refresh_token`, result.data.data.token)
+      Cookies.set(`refresh_token`, result.data.data.token, { domain: appDomain })
 
       // Redirect client page menuju halaman dashboard aplikasi
       return navigate("/dashboard/home")

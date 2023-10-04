@@ -41,7 +41,7 @@ export function SignIn() {
       const result = await axios.post(`${serviceHost}/auth/login`, data, { withCredentials: true }) // Mengirimkan request ke backend
 
       // ngadamel cookie refresh token, kanggo ngabuka akses ka dashboard
-      Cookies.set(`refresh_token`, result.data.data.token, { domain: appDomain })
+      Cookies.set(`refresh_token`, result.data.data.token)
 
       // Redirect client page menuju halaman dashboard aplikasi
       return navigate("/dashboard/home")

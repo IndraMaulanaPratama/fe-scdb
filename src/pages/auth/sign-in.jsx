@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import Cookies from "js-cookie";
-
+import Cookie from "js-cookie";
 import { Link, useNavigate } from "react-router-dom";
 
 import {
@@ -38,11 +37,9 @@ export function SignIn() {
     // Menjalankan service login
     try {
       data = { email: getEmail, password: getPassword } // Inisialisasi data mandatory
-      await axios.post(`${serviceHost}/auth/login`, data, { withCredentials: true }) // Mengirimkan request ke backend
+      const result = await axios.post(`${serviceHost}/auth/login`, data, { withCredentials: true }) // Mengirimkan request ke backend
 
-      token = Cookies.get("refresh_token")
-      console.info(token)
-      Cookies.set("refresh_token", token)
+      Cookie.set(`refresh_token`, Cookie.get(`refresh_token`))
 
       // Redirect client page menuju halaman dashboard aplikasi
       return navigate("/dashboard/home")

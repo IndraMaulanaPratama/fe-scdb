@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Cookies from "js-cookie";
 
 import { Link, useNavigate } from "react-router-dom";
 
@@ -27,7 +28,7 @@ export function SignIn() {
   const [getPassword, setPassword] = useState("")
   const [getMessage, setMessage] = useState("")
   const [getStatusAlert, setStatusAlert] = useState(false)
-  let data
+  let data, token
 
   // Logic process login
   const ProcessLogin = async (e) => {
@@ -38,6 +39,10 @@ export function SignIn() {
     try {
       data = { email: getEmail, password: getPassword } // Inisialisasi data mandatory
       await axios.post(`${serviceHost}/auth/login`, data, { withCredentials: true }) // Mengirimkan request ke backend
+
+      token = Cookies.get("refresh_token")
+      console.info(token)
+      Cookies.set("refresh_token", token)
 
       // Redirect client page menuju halaman dashboard aplikasi
       return navigate("/dashboard/home")
@@ -59,11 +64,11 @@ export function SignIn() {
 
   return (
     <>
-    {/* Biru */}
-    {/* https://unsplash.com/photos/7ACuHoezUYk */}
+      {/* Biru */}
+      {/* https://unsplash.com/photos/7ACuHoezUYk */}
 
-    {/* default */}
-    {/* https://images.unsplash.com/photo-1497294815431-9365093b7331?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1950&q=80" */}
+      {/* default */}
+      {/* https://images.unsplash.com/photo-1497294815431-9365093b7331?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1950&q=80" */}
       <img
         src="https://wallpaperaccess.com/full/4893694.jpg"
         alt="background-login-page"

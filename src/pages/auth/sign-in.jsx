@@ -35,6 +35,9 @@ export function SignIn() {
     // Melarang browser untuk merender page pada saat function dijalankan
     e.preventDefault()
 
+    // Ngarobih status alert supados teu nampil
+    setStatusAlert(false)
+
     // Menjalankan service login
     try {
       data = { email: getEmail, password: getPassword } // Inisialisasi data mandatory
@@ -58,6 +61,9 @@ export function SignIn() {
 
       // Merubah status alert agar bisa muncul di browser client
       setStatusAlert(true)
+
+      // Ngosongkeun kolom password
+      setPassword('')
     }
   }
 
